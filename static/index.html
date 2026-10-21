@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pakistan Tax Navigator</title>
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--text:#1c1c1a;--muted:#6b6b66;--line:#e2e2dc;--accent:#0f6e56;--accent2:#e1f5ee;--warn:#fff4e0;--warnt:#7a4b00;--mark:#ffe58a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+[dir=rtl] body{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Urdu Typesetting","Segoe UI",system-ui,sans-serif;line-height:1.9}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--line)}
+.brand{flex:1;line-height:1.3}.brand b{display:block}.brand span{font-size:12px;color:var(--muted)}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 14px}
+#menu{display:none}
+.layout{display:flex;max-width:1180px;margin:0 auto}
+aside{width:300px;flex:none;height:calc(100vh - 57px);position:sticky;top:57px;overflow:auto;padding:12px;border-inline-end:1px solid var(--line)}
+main{flex:1;min-width:0;padding:20px 20px 64px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{flex:1;padding:7px;border:1px solid var(--line);background:var(--card);border-radius:8px}
+.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+details{border-bottom:1px solid var(--line)}
+summary{padding:8px 4px;cursor:pointer;font-size:14px;font-weight:600}
+summary small{font-weight:400;color:var(--muted)}
+.sl{display:block;width:100%;text-align:start;border:0;background:none;padding:5px 8px;font-size:13px;border-radius:6px;color:var(--text)}
+.sl:hover{background:var(--accent2)}.sl i{font-style:normal;color:var(--muted);margin-inline-end:6px}
+.hero{background:linear-gradient(135deg,var(--accent2),var(--card));border:1px solid var(--line);border-radius:14px;padding:22px}
+.hero h1{margin:0 0 4px;font-size:26px}.hero p{margin:0 0 14px;color:var(--muted)}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+input[type=text]{flex:1 1 240px;padding:12px;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text)}
+.go{padding:12px 22px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-weight:600}
+.hint{margin-top:8px;font-size:13px;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{padding:5px 11px;font-size:13px;border:1px solid var(--line);border-radius:99px;background:var(--card)}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.warn{background:var(--warn);color:var(--warnt);border-radius:8px;padding:9px 12px;font-size:13px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
+.card:hover{border-color:var(--accent)}
+.hd{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.ttl{border:0;background:none;padding:0;font-weight:600;font-size:16px;text-align:start;color:var(--text)}
+.ttl:hover{color:var(--accent)}.tag{font-size:12px;color:var(--muted)}
+.snip{margin:8px 0 0;font-size:15px;white-space:pre-wrap;text-align:left}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 2px}
+.skel{height:92px;margin-top:12px;border-radius:12px;background:linear-gradient(90deg,var(--line),var(--card),var(--line));background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{color:var(--muted);margin-top:18px}
+.back{border:0;background:none;color:var(--accent);padding:0;margin-bottom:10px}
+.rd h2{margin:0 0 4px;font-size:22px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.acts button{padding:6px 12px;border:1px solid var(--line);background:var(--card);border-radius:8px;font-size:14px}
+.acts .on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.body{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;text-align:left}
+.refs{margin-top:14px}.refs .chip{margin-inline-end:6px;margin-bottom:6px}
+.fn{margin-top:14px;font-size:13px;color:var(--muted)}.fn pre{white-space:pre-wrap;font:inherit;text-align:left}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 16px;border-radius:99px;font-size:14px}
+@media(max-width:820px){#menu{display:block}aside{position:fixed;inset-inline-start:0;top:57px;z-index:4;background:var(--bg);transform:translateX(-100%);transition:.2s;width:86%;max-width:340px}[dir=rtl] aside{transform:translateX(100%)}aside.open,[dir=rtl] aside.open{transform:none}.hero h1{font-size:21px}}
+@media print{.top,aside,.hero,.acts,.back,.refs,.toast,.warn{display:none!important}main{padding:0}.body{border:0}}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="ib" id="menu" data-i="menu"></button>
+  <div class="brand"><b data-i="title"></b><span data-i="sub"></span></div>
+  <button class="ib" id="lang"></button>
+</header>
+<div class="layout">
+  <aside id="side">
+    <div class="tabs"><button class="on" data-t="browse" data-i="tabBrowse"></button><button data-t="saved"><span data-i="tabSaved"></span> <span id="cnt"></span></button></div>
+    <div id="browse"></div><div id="saved" hidden></div>
+  </aside>
+  <main>
+    <section class="hero">
+      <h1 data-i="h1"></h1>
+      <p id="stat"></p>
+      <form class="bar" id="f">
+        <input type="text" id="q" data-ip="ph" autocomplete="off">
+        <button class="go" type="submit" data-i="go"></button>
+      </form>
+      <div class="hint" id="hint" hidden data-i="hint"></div>
+      <div class="chips" id="chips"></div>
+    </section>
+    <div class="warn" data-i="warn"></div>
+    <div id="view"></div>
+  </main>
+</div>
+<script>
+const $=(s)=>document.querySelector(s);
+function h(t,a,...k){const e=document.createElement(t);for(const[n,v]of Object.entries(a||{})){if(n==="class")e.className=v;else if(n.startsWith("on"))e[n]=v;else e.setAttribute(n,v)}for(const c of k.flat())if(c!=null)e.append(c);return e}
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+
+/* ---------- language: poora UI ya English ya Urdu ---------- */
+const L=store.get("lang","en"),UR=L==="ur";
+document.documentElement.lang=L;document.documentElement.dir=UR?"rtl":"ltr";
+const T={
+en:{menu:"Menu",title:"Pakistan Tax Navigator",sub:"Income Tax Ordinance, 2001 · amended upto 30 June 2026",h1:"Search or browse the Ordinance",
+ stat:n=>`${n} chunks indexed · free, local search`,ph:"Type keywords or a question ( press / )",go:"Search",hint:"",
+ warn:"This is not legal or tax advice. Check the original text and the amended-upto date. Rate tables in the Schedules may appear scrambled; verify rates against the original FBR PDF.",
+ tabBrowse:"Browse",tabSaved:"Saved",noSaved:"Nothing saved yet. Open a section and press Save.",sec:"Section",page:"p.",amended:"amended upto",
+ back:"← Back",copy:"Copy citation",copied:"Citation copied",copyFail:"Could not copy",save:"Save",saved:"Saved ✓",print:"Print",
+ refs:"This section refers to:",fn:"Footnotes / amendment history",none:"No matching section found. Try other keywords or use Browse.",
+ err:"Error: ",notFound:"Section not found",remove:"Remove",
+ treeFail:"Chapters could not load. Make sure the latest webapp.py is in place, then stop the server (Ctrl+C) and run python webapp.py again.",
+ langBtn:"اردو",
+ chips:[["Who must file a return of income?"],["Unexplained income or assets"],["Appeal to Appellate Tribunal"],["Minimum tax"],["Best judgement assessment"]]},
+ur:{menu:"مینو",title:"پاکستان ٹیکس نیویگیٹر",sub:"انکم ٹیکس آرڈیننس، 2001 · 30 جون 2026 تک ترمیم شدہ",h1:"آرڈیننس تلاش کریں یا براؤز کریں",
+ stat:n=>`${n} حصے ترتیب شدہ · مفت، مقامی تلاش`,ph:"تلاش کے لیے انگریزی الفاظ لکھیں ( / دبائیں )",go:"تلاش کریں",
+ hint:"نوٹ: آرڈیننس کا متن انگریزی میں ہے، اس لیے تلاش انگریزی الفاظ سے کام کرتی ہے۔",
+ warn:"یہ قانونی یا ٹیکس مشورہ نہیں ہے۔ اصل متن اور ترمیم کی تاریخ ضرور دیکھیں۔ شیڈولز کے ریٹ ٹیبل بکھرے ہوئے نظر آ سکتے ہیں، ریٹ ہمیشہ اصل ایف بی آر پی ڈی ایف سے تصدیق کریں۔",
+ tabBrowse:"فہرست",tabSaved:"محفوظ",noSaved:"ابھی کچھ محفوظ نہیں۔ کوئی دفعہ کھولیں اور محفوظ کریں دبائیں۔",sec:"دفعہ",page:"صفحہ",amended:"ترمیم شدہ بتاریخ",
+ back:"واپس →",copy:"حوالہ کاپی کریں",copied:"حوالہ کاپی ہو گیا",copyFail:"کاپی نہیں ہو سکا",save:"محفوظ کریں",saved:"محفوظ ✓",print:"پرنٹ",
+ refs:"اس دفعہ میں ان دفعات کا حوالہ ہے:",fn:"حواشی / ترمیمی تاریخ",none:"کوئی متعلقہ دفعہ نہیں ملی۔ دوسرے الفاظ آزمائیں یا فہرست استعمال کریں۔",
+ err:"خرابی: ",notFound:"دفعہ نہیں ملی",remove:"ہٹائیں",
+ treeFail:"ابواب لوڈ نہیں ہو سکے۔ یقینی بنائیں کہ webapp.py کی نئی فائل لگی ہوئی ہے، پھر سرور بند (Ctrl+C) کر کے دوبارہ چلائیں۔",
+ langBtn:"English",
+ chips:[["Who must file a return of income?","کون انکم ریٹرن جمع کرانے کا پابند ہے؟"],["Unexplained income or assets","غیر وضاحت شدہ آمدنی یا اثاثے"],["Appeal to Appellate Tribunal","اپیلٹ ٹریبونل میں اپیل"],["Minimum tax","کم از کم ٹیکس"],["Best judgement assessment","صوابدید پر مبنی تشخیص"]]}
+}[L];
+const UR_CH={I:"ابتدائی",II:"ٹیکس کا نفاذ",III:"قابلِ ٹیکس آمدنی پر ٹیکس",IV:"مشترکہ قواعد",V:"افراد سے متعلق احکامات",VI:"مخصوص صنعتیں",VII:"بین الاقوامی",VIII:"ٹیکس سے بچاؤ کی روک تھام",IX:"کم از کم ٹیکس",X:"طریقۂ کار",XI:"انتظامیہ",XII:"عبوری ایڈوانس ٹیکس احکامات",XIII:"متفرق"};
+const ROM={I:1,II:2,III:3,IV:4,V:5,VI:6,VII:7,VIII:8,IX:9,X:10,XI:11,XII:12,XIII:13};
+function chName(n){
+  if(!UR)return n;
+  const m=n.match(/^Chapter ([IVX]+)/);
+  if(m&&UR_CH[m[1]])return `باب ${ROM[m[1]]}: ${UR_CH[m[1]]}`;
+  return n==="Schedules"?"شیڈولز":n;
+}
+/* statik text */
+document.querySelectorAll("[data-i]").forEach(e=>{const v=T[e.dataset.i];if(typeof v==="string")e.textContent=v});
+$("#q").placeholder=T.ph;$("#hint").hidden=!T.hint;$("#lang").textContent=T.langBtn;
+$("#lang").onclick=()=>{store.set("lang",UR?"en":"ur");location.reload()};
+$("#menu").onclick=()=>$("#side").classList.toggle("open");
+
+let meta={},saved=store.get("saved",[]),terms=[],restore=null;
+const STOP=new Set("the and for what who how are with this that from which when where into under shall".split(" "));
+const fmt=(iso)=>{const d=new Date(iso);return isNaN(d)?iso:d.toLocaleDateString(UR?"ur-PK":"en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})};
+const cite=(r)=>"Income Tax Ordinance, 2001, "+(r.chapter==="Schedules"?r.title:`s.${r.section} (${r.title})`)+` — amended upto ${new Date(r.amended_upto).toISOString().slice(0,10)}`;
+const isSaved=(r)=>saved.some(x=>x.a===r.act&&x.s===r.section);
+const toast=(m)=>{const t=h("div",{class:"toast"},m);document.body.append(t);setTimeout(()=>t.remove(),1600)};
+const en=(t)=>h("bdi",{dir:"ltr"},t);                       /* qanoon ka angrezi title */
+const secTitle=(r)=>r.chapter==="Schedules"?[en(r.title)]:[`${T.sec} ${r.section} — `,en(r.title)];
+function hl(text){
+  if(!terms.length)return [text];
+  return text.split(new RegExp("\\b("+terms.join("|")+")","gi")).map((p,i)=>i%2?h("mark",{},p):p);
+}
+/* sidebar */
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  $("#browse").hidden=b.dataset.t!=="browse";$("#saved").hidden=b.dataset.t!=="saved"});
+const secBtn=(a,s,t,label)=>h("button",{class:"sl",onclick:()=>{openSection(a,s);$("#side").classList.remove("open")}},h("i",{},label),h("span",{dir:"ltr"},t));
+function renderTree(tree){
+  const box=$("#browse");box.replaceChildren();
+  for(const ch of tree){
+    const d=h("details",{},h("summary",{},chName(ch.name)+" ",h("small",{},`(${ch.sections.length})`)));
+    let filled=false;
+    d.ontoggle=()=>{if(d.open&&!filled){filled=true;d.append(...ch.sections.map(x=>secBtn(x.a,x.s,x.t,ch.name==="Schedules"?"":x.s)))}};
+    box.append(d);
+  }
+}
+function renderSaved(){
+  $("#cnt").textContent=saved.length?`(${saved.length})`:"";
+  const box=$("#saved");box.replaceChildren();
+  if(!saved.length){box.append(h("div",{class:"empty"},T.noSaved));return}
+  for(const x of saved)box.append(h("div",{style:"display:flex"},secBtn(x.a,x.s,x.t,x.s),
+    h("button",{class:"sl",style:"width:auto",title:T.remove,onclick:()=>{saved=saved.filter(y=>y!==x);store.set("saved",saved);renderSaved()}},"×")));
+}
+/* results */
+const card=(r)=>h("div",{class:"card"},
+  h("div",{class:"hd"},h("button",{class:"ttl",onclick:()=>openSection(r.act,r.section)},secTitle(r)),
+    h("span",{class:"tag"},`${chName(r.chapter)} · ${T.page} ${r.page}`)),
+  h("div",{class:"snip",dir:"ltr"},hl(r.snippet)));
+async function search(q){
+  const v=$("#view");restore=null;
+  v.replaceChildren(h("div",{class:"skel"}),h("div",{class:"skel"}),h("div",{class:"skel"}));
+  terms=(q.toLowerCase().match(/[a-z0-9]{3,}/g)||[]).filter(w=>!STOP.has(w));
+  try{
+    const {results}=await(await fetch(`/api/search?q=${encodeURIComponent(q)}`)).json();
+    const list=h("div",{},results.length?results.map(card):h("div",{class:"empty"},T.none));
+    v.replaceChildren(list);restore=()=>v.replaceChildren(list);
+  }catch(e){v.replaceChildren(h("div",{class:"empty"},T.err+e.message))}
+}
+/* reader */
+async function openSection(a,s){
+  const v=$("#view");
+  if(!restore){const keep=[...v.childNodes];restore=()=>v.replaceChildren(...keep)}
+  const res=await fetch(`/api/section?act=${encodeURIComponent(a)}&section=${encodeURIComponent(s)}`);
+  if(!res.ok){toast(T.notFound);return}
+  const d=await res.json();
+  const sv=h("button",{});
+  const upd=()=>{sv.textContent=isSaved(d)?T.saved:T.save;sv.className=isSaved(d)?"on":""};
+  sv.onclick=()=>{if(isSaved(d))saved=saved.filter(x=>!(x.a===d.act&&x.s===d.section));else saved.push({a:d.act,s:d.section,t:d.title});
+    store.set("saved",saved);upd();renderSaved()};upd();
+  const notes=(d.notes||"").split(" || ").join("\n\n").split(" | ").join("\n");
+  v.replaceChildren(h("div",{class:"rd"},
+    h("button",{class:"back",onclick:()=>restore?restore():v.replaceChildren()},T.back),
+    h("h2",{},secTitle(d)),
+    h("div",{class:"tag"},`${chName(d.chapter)} · ${T.page} ${d.page} · ${T.amended} ${fmt(d.amended_upto)}`),
+    h("div",{class:"acts"},
+      h("button",{onclick:async()=>{try{await navigator.clipboard.writeText(cite(d));toast(T.copied)}catch{toast(T.copyFail)}}},T.copy),
+      sv,h("button",{onclick:()=>print()},T.print)),
+    h("div",{class:"body",dir:"ltr"},hl(d.text)),
+    d.refs&&d.refs.length?h("div",{class:"refs"},h("div",{class:"tag",style:"margin-bottom:6px"},T.refs),
+      d.refs.map(r=>h("button",{class:"chip",title:r.title,onclick:()=>openSection(d.act,r.section)},(UR?"دفعہ ":"s.")+r.section+" "+r.title.slice(0,28)))):null,
+    notes?h("details",{class:"fn"},h("summary",{},T.fn),h("pre",{dir:"ltr"},notes)):null));
+  scrollTo({top:0,behavior:"smooth"});
+}
+/* init */
+$("#f").onsubmit=(e)=>{e.preventDefault();const q=$("#q").value.trim();if(q)search(q)};
+addEventListener("keydown",(e)=>{if(e.key==="/"&&document.activeElement.tagName!=="INPUT"){e.preventDefault();$("#q").focus()}});
+for(const[q,label]of T.chips)$("#chips").append(h("button",{class:"chip",type:"button",onclick:()=>{$("#q").value=q;search(q)}},label||q));
+(async()=>{
+  try{
+    meta=await(await fetch("/api/meta")).json();
+    $("#stat").textContent=T.stat(meta.chunks);
+  }catch(e){$("#stat").textContent=T.err+e.message}
+  try{
+    const r=await fetch("/api/tree");if(!r.ok)throw new Error(r.status);
+    renderTree(await r.json());
+  }catch(e){$("#browse").append(h("div",{class:"empty"},T.treeFail))}
+  renderSaved();
+})();
+</script>
+</body>
+</html>
